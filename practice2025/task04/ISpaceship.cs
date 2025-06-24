@@ -6,5 +6,9 @@ public interface ISpaceship
     void Rotate(int angle);
     void Fire();
     int Speed { get; }
-    int FirePower { get; } 
+    int FirePower { get; }
+    int Position { get; }
+    int Angle { get; }
+    int RotateSpeed { get; }
+    int BulletCount { get; }
 }

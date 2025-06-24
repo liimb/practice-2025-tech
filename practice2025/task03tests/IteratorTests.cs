@@ -11,7 +11,7 @@ public class IteratorTests
 
         var result = collection.ToList();
 
-        Assert.Equal(new[] { 1, 2 }, result);
+        Assert.Equal([1, 2], result);
     }
 
     [Fact]

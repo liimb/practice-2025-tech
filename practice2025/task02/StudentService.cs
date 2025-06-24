@@ -6,7 +6,7 @@ public class StudentService(List<Student> students)
         =>  students.Where(s => s.Faculty == faculty);
 
     public IEnumerable<Student> GetStudentsWithMinAverageGrade(double minAverageGrade) 
-        => students.Where(s => s.Grades.Average() >= minAverageGrade);
+        => students.Where(s => s.Grades.Count > 0 && s.Grades.Average() >= minAverageGrade);
 
     public IEnumerable<Student> GetStudentsOrderedByName()
         => students.OrderBy(s => s.Name);
@@ -16,6 +16,7 @@ public class StudentService(List<Student> students)
 
     public string GetFacultyWithHighestAverageGrade()
         => students
+            .Where(s => s.Grades.Count > 0)
             .GroupBy(s => s.Faculty)
             .Select(g => new
             {

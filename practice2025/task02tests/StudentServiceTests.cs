@@ -12,7 +12,8 @@ public class StudentServiceTests
             new("Иван", "ФИТ", [5, 4, 5]),
             new("Анна", "ФИТ", [3, 4, 3]),
             new("Петр", "Экономика", [5, 5, 5]),
-            new("Яков", "Строительство", [2, 3, 2])
+            new("Яков", "Строительство", [2, 3, 2]),
+            new("Максим", "Строительство", [])
         ];
         _service = new StudentService(testStudents);
     }
@@ -39,8 +40,9 @@ public class StudentServiceTests
        var result = _service.GetStudentsOrderedByName().ToList();
        Assert.Equal("Анна", result[0].Name);
        Assert.Equal("Иван", result[1].Name);
-       Assert.Equal("Петр", result[2].Name);
-       Assert.Equal("Яков", result[3].Name);
+       Assert.Equal("Максим", result[2].Name);
+       Assert.Equal("Петр", result[3].Name);
+       Assert.Equal("Яков", result[4].Name);
     }
 
     [Fact]
@@ -51,7 +53,7 @@ public class StudentServiceTests
        Assert.Equal(3, result.Count);
        Assert.Equal(2, result["ФИТ"].Count());
        Assert.Single(result["Экономика"]);
-       Assert.Single(result["Строительство"]);
+       Assert.Equal(2, result["Строительство"].Count());
     }
     
     [Fact]

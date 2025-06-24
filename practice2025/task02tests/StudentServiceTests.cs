@@ -9,10 +9,10 @@ public class StudentServiceTests
     public StudentServiceTests()
     {
         List<Student> testStudents = [
-            new() { Name = "Иван", Faculty = "ФИТ", Grades = [5, 4, 5] },
-            new() { Name = "Анна", Faculty = "ФИТ", Grades = [3, 4, 3] },
-            new() { Name = "Петр", Faculty = "Экономика", Grades = [5, 5, 5] },
-            new() { Name = "Яков", Faculty = "Строительство", Grades = [2, 3, 2] }
+            new("Иван", "ФИТ", [5, 4, 5]),
+            new("Анна", "ФИТ", [3, 4, 3]),
+            new("Петр", "Экономика", [5, 5, 5]),
+            new("Яков", "Строительство", [2, 3, 2])
         ];
         _service = new StudentService(testStudents);
     }

@@ -24,6 +24,7 @@ public class Cruiser : ISpaceship
         if (BulletCount >= 3)
         {
             BulletCount -= 3;
+            Position -= FirePower;
         }
     }
 }

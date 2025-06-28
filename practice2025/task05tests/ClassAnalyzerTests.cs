@@ -35,6 +35,7 @@ public class ClassAnalyzerTests
         var methodParams = analyzer.GetMethodParams("MethodTwo");
 
         Assert.Contains("param2", methodParams);
+        Assert.True(methodParams.Last() == "Void");
     }
 
     [Fact]

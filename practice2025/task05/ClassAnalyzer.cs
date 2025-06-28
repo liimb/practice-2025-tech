@@ -8,10 +8,15 @@ public class ClassAnalyzer(Type type)
 
     public IEnumerable<string> GetPublicMethods() =>
         _type.GetMethods().Select(m => m.Name).ToList();
-    
-    public IEnumerable<string> GetMethodParams(string methodName) =>
-         _type.GetMethod(methodName).GetParameters().Select(m => m.Name).ToList();
-    
+
+    public IEnumerable<string> GetMethodParams(string methodName)
+    {
+        var method = _type.GetMethod(methodName);
+        var list = method.GetParameters().Select(m => m.Name).ToList();
+        list.Add(method.ReturnType.Name);
+        return list;
+    }
+
     public IEnumerable<string> GetAllFields() => _type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)
         .Select(m => m.Name).ToList();
 

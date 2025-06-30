@@ -6,6 +6,7 @@ public class CustomCollection<T> : IEnumerable<T>
 {
     private readonly List<T> _items = [];
     public void Add(T item) => _items.Add(item);
+    public void Remove(T item) => _items.Remove(item);
     public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
     
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

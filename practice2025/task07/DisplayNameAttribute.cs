@@ -1,5 +1,6 @@
 ﻿namespace task07;
 
-public class DisplayNameAttribute
+[AttributeUsage(AttributeTargets.All)]
+public class DisplayNameAttribute : Attribute
 {
 }

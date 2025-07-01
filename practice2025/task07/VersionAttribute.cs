@@ -1,6 +1,7 @@
 namespace task07;
 
-public class VersionAttribute
+[AttributeUsage(AttributeTargets.All)]
+public class VersionAttribute(string version) : Attribute
 {
-    
+    public string Version => version;
 }

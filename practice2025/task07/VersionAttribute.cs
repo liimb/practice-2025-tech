@@ -1,7 +1,7 @@
 namespace task07;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class VersionAttribute(string version) : Attribute
+public class VersionAttribute(int major, int minor) : Attribute
 {
-    public string Version => version;
+    public string Version => $"{major}.{minor}";
 }

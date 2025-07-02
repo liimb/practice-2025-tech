@@ -1,6 +1,7 @@
 ﻿namespace task07;
 
-[AttributeUsage(AttributeTargets.All)]
-public class DisplayNameAttribute : Attribute
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
+public class DisplayNameAttribute(string name) : Attribute
 {
+    public string DisplayName => name;
 }

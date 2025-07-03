@@ -4,11 +4,10 @@ namespace FileSystemCommands;
 
 public class FindFilesCommand(string path, string mask) : ICommand
 {
-    private readonly string _path = path;
-    private readonly string _mask = mask;
-    
+    public List<string> FoundFiles { get; private set; } = [];
+
     public void Execute()
     {
-        
+        FoundFiles = Directory.GetFiles(path, mask, SearchOption.AllDirectories).ToList();
     }
 }

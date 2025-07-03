@@ -1,20 +1,34 @@
 using System.Reflection;
+using System.Text;
 
 namespace task07;
 
 public static class ReflectionHelper
 {
-    public static void PrintTypeInfo(Type type)
+    public static string PrintTypeInfo(Type type)
     {
+        StringBuilder info = new StringBuilder();
+        
         var nameAttribute = type.GetCustomAttribute<DisplayNameAttribute>();
         var versionAttribute = type.GetCustomAttribute<VersionAttribute>();
+
+        info.Append($"Имя класса: {nameAttribute?.DisplayName}\n");
+        info.Append($"Версия класса: {versionAttribute?.Major}.{versionAttribute?.Minor}\n");
         
-        Console.WriteLine($"Имя класса: {nameAttribute?.DisplayName}");
-        Console.WriteLine($"Версия класса: {versionAttribute?.Major}.{versionAttribute?.Minor}");
+        info.Append("Методы класса:\n");
+        type.GetMethods()
+            .Select(m => m.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName)
+            .Where(name => name != null)
+            .ToList()
+            .ForEach(name => info.Append($"{name}\n"));
+
+        info.Append("Свойства класса:\n");
+        type.GetProperties()
+            .Select(p => p.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName)
+            .Where(name => name != null)
+            .ToList()
+            .ForEach(name => info.Append($"{name}\n"));
         
-        Console.WriteLine("Методы класса:");
-        type.GetMethods().ToList().ForEach(m => Console.WriteLine(m.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName));
-        Console.WriteLine("Свойства класса:");
-        type.GetProperties().ToList().ForEach(p => Console.WriteLine(p.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName));
+        return info.ToString();
     }
 }

@@ -45,6 +45,7 @@ public class AttributeReflectionTests
     [Fact]
     public void ReflectionHelper_HasInfoInPrint()
     {
-        ReflectionHelper.PrintTypeInfo(typeof(SampleClass));
+        string info = ReflectionHelper.PrintTypeInfo(typeof(SampleClass));
+        Assert.Equal("Имя класса: Пример класса\nВерсия класса: 1.0\nМетоды класса:\nТестовый метод\nСвойства класса:\nЧисловое свойство\n", info);
     }
 }

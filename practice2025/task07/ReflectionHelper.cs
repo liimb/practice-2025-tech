@@ -29,6 +29,8 @@ public static class ReflectionHelper
             .ToList()
             .ForEach(name => info.Append($"{name}\n"));
         
+        Console.Write(info.ToString());
+        
         return info.ToString();
     }
 }

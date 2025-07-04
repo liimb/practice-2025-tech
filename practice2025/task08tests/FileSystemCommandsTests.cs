@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FileSystemCommands;
 
 namespace task08tests;
@@ -45,5 +46,27 @@ public class FileSystemCommandsTests
         Assert.Contains(txtFile, command.FoundFiles);
 
         Directory.Delete(testDir, true);
+    }
+
+    [Fact]
+    public void ConsoleCommandRunner_ShouldExpectedPrint()
+    {
+        var baseDir = AppContext.BaseDirectory;
+        var exePath = Path.Combine(baseDir, "CommandRunner");
+        
+        string expected = "Выполнение FindFilesCommand.Execute()\nВыполнение DirectorySizeCommand.Execute()\n";
+        
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = exePath,
+            RedirectStandardOutput = true,
+        };
+
+        using var process = new Process();
+        process.StartInfo = startInfo;
+        process.Start();
+        process.WaitForExit();
+        
+        Assert.Equal(expected, process.StandardOutput.ReadToEnd());
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using CommandLib;
+using FileSystemCommands;
 
 namespace CommandRunner;
 
@@ -25,7 +26,7 @@ class Runner
             .ToList()
             .First(t => t.Name == "FindFilesCommand");
 
-        if (Activator.CreateInstance(findFiles, testFilesDir, "*.txt") is ICommand filesCommand)
+        if (Activator.CreateInstance(findFiles, testFilesDir, "*.txt") is FindFilesCommand filesCommand)
         {
             filesCommand.Execute();
             Console.WriteLine("Выполнение FindFilesCommand.Execute()");
@@ -45,7 +46,7 @@ class Runner
             .ToList()
             .First(t => t.Name == "DirectorySizeCommand");
 
-        if (Activator.CreateInstance(sizeFiles, testDir) is ICommand sizeCommand)
+        if (Activator.CreateInstance(sizeFiles, testDir) is DirectorySizeCommand sizeCommand)
         {
             sizeCommand.Execute();
             Console.WriteLine("Выполнение DirectorySizeCommand.Execute()");

@@ -1,4 +1,5 @@
-﻿using task10;
+﻿using PlugineTwo;
+using task10;
 
 namespace PlugineThree;
 
@@ -7,6 +8,8 @@ public class CommandThree : ICommand
 {
     public void Execute()
     {
+        var c = new CommandTwo();
+        c.Execute();
         Console.WriteLine("Третий плагин");
     }
 }

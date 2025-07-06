@@ -9,6 +9,7 @@ public static class LibrariesLoader
         var dllPaths = Directory.GetFiles(pathToDirectory, "*.dll");
         var dlls = dllPaths
             .Select(Assembly.LoadFrom)
+            .Where(a => a.GetTypes().Any(t => t.GetCustomAttributes(typeof(PluginLoadAttribute), inherit: true).Length != 0))
             .ToArray();
         
         var dllCount = dlls.Length;

@@ -48,6 +48,5 @@ public static class CalculatorGenerator
         ICalculator calculator = (ICalculator)instance!;
         
         return calculator;
-
     }
 }

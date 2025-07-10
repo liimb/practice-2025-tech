@@ -35,7 +35,7 @@ public static class CalculatorGenerator
         );
 
         using var ms = new MemoryStream();
-        var result = compilation.Emit(ms);
+        compilation.Emit(ms);
 
         ms.Seek(0, SeekOrigin.Begin);
         var assembly = AssemblyLoadContext.Default.LoadFromStream(ms);

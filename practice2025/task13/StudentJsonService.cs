@@ -9,10 +9,10 @@ public static class StudentJsonService
         return JsonSerializer.Deserialize<Student>(json, options);
     }
 
-    public static string ToJsonAndFile(this Student student)
+    public static string ToJsonAndFile(this Student student, string path)
     {
         var json = JsonSerializer.Serialize(student);
-        File.WriteAllText("student.json", json);
+        File.WriteAllText(path, json);
         return json;
     }
 }

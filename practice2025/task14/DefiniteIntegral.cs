@@ -25,18 +25,18 @@ public static class DefiniteIntegral
 
             threads[i] = new Thread(() =>
             {
-                var localSum = 0d;
+                var sum = 0d;
 
                 for (var j = 0; j < localSteps; j++)
                 {
                     var x1 = a + (localStartStep + j) * step;
                     var x2 = x1 + step;
-                    localSum += (function(x1) + function(x2)) * (x2 - x1) / 2d;
+                    sum += (function(x1) + function(x2)) * (x2 - x1) / 2d;
                 }
 
                 lock (locker)
                 {
-                    result += localSum;
+                    result += sum;
                 }
 
                 barrier.SignalAndWait();

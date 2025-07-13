@@ -4,6 +4,49 @@ public static class DefiniteIntegral
 {
     public static double Solve(double a, double b, Func<double, double> function, double step, int threadsNumber)
     {
-        return 0.0;
+        var stepCount = (b - a) / step;
+
+        var result = 0d;
+        var locker = new object();
+
+        var barrier = new Barrier(threadsNumber + 1);
+        var threads = new Thread[threadsNumber];
+
+        var stepsPerThread = stepCount / threadsNumber;
+        var remainingSteps = stepCount % threadsNumber;
+
+        var currentStartStep = 0d;
+
+        for (var i = 0; i < threadsNumber; i++)
+        {
+            var localStartStep = currentStartStep;
+            var localSteps = stepsPerThread + (i < remainingSteps ? 1 : 0);
+            currentStartStep += localSteps;
+
+            threads[i] = new Thread(() =>
+            {
+                var localSum = 0d;
+
+                for (var j = 0; j < localSteps; j++)
+                {
+                    var x1 = a + (localStartStep + j) * step;
+                    var x2 = x1 + step;
+                    localSum += (function(x1) + function(x2)) * (x2 - x1) / 2d;
+                }
+
+                lock (locker)
+                {
+                    result += localSum;
+                }
+
+                barrier.SignalAndWait();
+            });
+
+            threads[i].Start();
+        }
+
+        barrier.SignalAndWait();
+
+        return result;
     }
 }

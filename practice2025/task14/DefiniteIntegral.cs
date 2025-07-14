@@ -49,4 +49,20 @@ public static class DefiniteIntegral
 
         return result;
     }
+    
+    public static double Solve(double a, double b, Func<double, double> function, double step)
+    {
+        var result = 0d;
+
+        var stepCount = (b - a) / step;
+
+        for (var i = 0; i < stepCount; i++)
+        {
+            var x1 = a + i * step;
+            var x2 = x1 + step;
+            result += (function(x1) + function(x2)) * (x2 - x1) / 2d;
+        }
+
+        return result;
+    }
 }

@@ -4,48 +4,35 @@ public static class DefiniteIntegral
 {
     public static double Solve(double a, double b, Func<double, double> function, double step, int threadsNumber)
     {
-        var stepCount = (b - a) / step;
+        var stepCount = (int)((b - a) / step);
 
         var result = 0d;
-        var locker = new object();
+        var stepCountPerThread = stepCount / threadsNumber;
 
-        var barrier = new Barrier(threadsNumber + 1);
-        var threads = new Thread[threadsNumber];
-
-        var stepsPerThread = stepCount / threadsNumber;
-        var remainingSteps = stepCount % threadsNumber;
-
-        var currentStartStep = 0d;
-
-        for (var i = 0; i < threadsNumber; i++)
+        var options = new ParallelOptions
         {
-            var localStartStep = currentStartStep;
-            var localSteps = stepsPerThread + (i < remainingSteps ? 1 : 0);
-            currentStartStep += localSteps;
+            MaxDegreeOfParallelism = threadsNumber
+        };
 
-            threads[i] = new Thread(() =>
+        object locker = new();
+
+        Parallel.For(0, threadsNumber, options, i =>
+        {
+            var start = i * stepCountPerThread;
+            var end = (i == threadsNumber - 1) ? stepCount : start + stepCountPerThread;
+
+            double localSum = 0;
+
+            for (var j = start; j < end; j++)
             {
-                var sum = 0d;
+                var x1 = a + j * step;
+                var x2 = x1 + step;
+                localSum += (function(x1) + function(x2)) * (x2 - x1) / 2.0;
+            }
 
-                for (var j = 0; j < localSteps; j++)
-                {
-                    var x1 = a + (localStartStep + j) * step;
-                    var x2 = x1 + step;
-                    sum += (function(x1) + function(x2)) * (x2 - x1) / 2d;
-                }
-
-                lock (locker)
-                {
-                    result += sum;
-                }
-
-                barrier.SignalAndWait();
-            });
-
-            threads[i].Start();
-        }
-
-        barrier.SignalAndWait();
+            lock (locker)
+                result += localSum;
+        });
 
         return result;
     }

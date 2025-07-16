@@ -20,6 +20,7 @@ public class ServerThread
     }
 
     public void Start() => _thread.Start();
+    public void Join() => _thread.Join();
 
     public void EnqueueCommand(ICommand command) => _queue.Add(command);
 

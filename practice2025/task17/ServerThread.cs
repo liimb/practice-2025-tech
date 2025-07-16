@@ -8,7 +8,7 @@ public class ServerThread
     private readonly Thread _thread;
     private bool _isHardStopped;
     private bool _softStopRequested;
-    public string Name => _thread.Name;
+    public string? Name => _thread.Name;
 
     public ServerThread(string name)
     {

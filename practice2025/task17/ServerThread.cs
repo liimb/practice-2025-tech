@@ -8,7 +8,6 @@ public class ServerThread
     private readonly Thread _thread;
     private bool _isHardStopped;
     private bool _softStopRequested;
-    public string? Name => _thread.Name;
 
     public ServerThread(string name)
     {
@@ -55,7 +54,6 @@ public class ServerThread
     public void RequestHardStop()
     {
         _isHardStopped = true;
-        _queue.CompleteAdding();
     }
 
     public void RequestSoftStop()

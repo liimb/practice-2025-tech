@@ -23,7 +23,7 @@ public class ServerSchedulerThreadTests
         server.Join();
 
         var output = sw.ToString();
-        const string expected = "Простая команда\nВыполнений осталось: 2\nВыполнений осталось: 1\nВыполнений осталось: 0\nПростая команда\nSoftStop\n";
+        const string expected = "Простая команда\nВыполнений осталось: 2\nВыполнений осталось: 1\nПростая команда\nВыполнений осталось: 0\nSoftStop\n";
         
         Assert.Equal(expected, output);
     }

@@ -29,21 +29,21 @@ public class ServerSchedulerThread
     {
         while (_running)
         {
-            if (_scheduler.HasCommand())
+            if (_queue.TryTake(out var command))
             {
-                var scheduledCmd = _scheduler.Select();
-                if (!scheduledCmd.Execute())
-                {
-                    _scheduler.Add(scheduledCmd);
-                }
-                continue;
+                if (!command.Execute())
+                    _scheduler.Add(command);
             }
 
-            if (!_queue.TryTake(out var newCmd, TimeSpan.FromMilliseconds(100))) continue;
-            
-            if (!newCmd.Execute())
+            if (_scheduler.HasCommand())
             {
-                _scheduler.Add(newCmd);
+                var cmd = _scheduler.Select();
+                if (!cmd.Execute())
+                    _scheduler.Add(cmd);
+            }
+            else
+            {
+                Thread.Sleep(100);
             }
             
             if (_softStopRequested && _queue.Count == 0 && !_scheduler.HasCommand())

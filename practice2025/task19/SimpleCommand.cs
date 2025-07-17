@@ -1,6 +1,6 @@
 namespace task19;
 
-public class SomeCommand : ICommand
+public class SimpleCommand : ICommand
 {
     public bool Execute()
     {

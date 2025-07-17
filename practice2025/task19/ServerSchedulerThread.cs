@@ -29,15 +29,25 @@ public class ServerSchedulerThread
     {
         while (_running)
         {
+            if (!_running)
+                break;
+
             if (_queue.TryTake(out var command))
             {
+                if (!_running) break;
+
                 if (!command.Execute())
                     _scheduler.Add(command);
             }
 
+            if (!_running)
+                break;
+
             if (_scheduler.HasCommand())
             {
                 var cmd = _scheduler.Select();
+                if (!_running) break;
+
                 if (!cmd.Execute())
                     _scheduler.Add(cmd);
             }
@@ -45,7 +55,7 @@ public class ServerSchedulerThread
             {
                 Thread.Sleep(100);
             }
-            
+
             if (_softStopRequested && _queue.Count == 0 && !_scheduler.HasCommand())
                 break;
         }

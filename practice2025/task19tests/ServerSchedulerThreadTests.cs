@@ -1,6 +1,6 @@
-using task18;
+using task19;
 
-namespace task18tests;
+namespace task19tests;
 
 public class ServerSchedulerThreadTests
 {

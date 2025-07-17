@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task18", "task18\task18.csproj", "{5D93E6F0-B8CE-44CE-B121-B92C7119F12F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task19", "task19\task19.csproj", "{5D93E6F0-B8CE-44CE-B121-B92C7119F12F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task18tests", "task18tests\task18tests.csproj", "{78DC4B18-0A0A-4BAB-B3A4-54B4A068A790}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task19tests", "task19tests\task19tests.csproj", "{78DC4B18-0A0A-4BAB-B3A4-54B4A068A790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
